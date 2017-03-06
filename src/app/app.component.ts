@@ -1,5 +1,22 @@
 import { Component } from '@angular/core';
 
+export class WoodburningEntry {
+  id: number;
+  name: string;
+  size: string;
+  material: string;
+  date_finished: string;
+  total_time_to_make_in_minutes: number;
+  total_time_to_make_abbreviated: number;
+}
+
+const WOODBURNINGS: WoodburningEntry[] = [
+  { id: 1, name: 'Maid Deadpool - Door Hanger', size: '4.5" x 4.5"', material: 'Pinewood', date_finished: 'February 28th, 2017', total_time_to_make_in_minutes: 93, total_time_to_make_abbreviated: 1.5 },
+  { id: 2, name: 'Deadpool Arms Crossed', size: '5" x 7"', material: 'Birch Plywood', date_finished: 'February 27th, 2017', total_time_to_make_in_minutes: 193, total_time_to_make_abbreviated: 3.25 },
+  { id: 3, name: 'Mouthy Canadian Deadpool', size: '5" x 7"', material: 'Birch Plywood', date_finished: 'September 23rd, 2016', total_time_to_make_in_minutes: 87, total_time_to_make_abbreviated: 1.5 },
+  { id: 4, name: 'I have Comiks Issues Deadpool', size: '5" x 7"', material: 'Birch Plywood', date_finished: 'September 23rd, 2016', total_time_to_make_in_minutes: 101, total_time_to_make_abbreviated: 1.75 },
+];
+
 @Component({
   selector: 'my-app',
   template:
@@ -7,40 +24,43 @@ import { Component } from '@angular/core';
     <h1>{{title}}</h1>
     <h2>My Woodburnings</h2>
     <ul class="woodburnings_list">
-      <li *ngFor="let woodburning of all_woodburnings">
+      <li *ngFor="let woodburning of all_woodburnings" [class.selected]="woodburning === selectedWoodburning" (click)="onSelect(woodburning)">
         <span class="badge">{{woodburning.id}}: </span> {{woodburning.name}}
       </li>
     </ul>
     <br/>
-    
-    <!--<div>-->
-      <!--<label><strong>Woodburning Number (id):</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.id" placeholder="E.g.: 1, 2, 3, 4, etc.">-->
-    <!--</div>-->
-        <!--<div>-->
-      <!--<label><strong>Name of Woodburning:</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.name" placeholder="E.g.: Deadpool - Arms Crossed">-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label><strong>Size:</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.size" placeholder='E.g.: 3" x 2", 5" x 7"'>-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label><strong>Material Used:</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.material" placeholder="E.g.: Pinewood, Birch">-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label><strong>Date Finished:</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.date_finished" placeholder="E.g.: February 28th, 2017">-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label><strong>Total Time Taken (In Minutes):</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.total_time_to_make_in_minutes" placeholder="E.g.: 93, 165, 12">-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label><strong>Total Time Taken (Abbreviated):</strong></label>-->
-      <!--<input [(ngModel)]="woodburning.total_time_to_make_abbreviated" placeholder="E.g.: 1.5, 2.75, 0.25">-->
-    <!--</div>-->`,
+    <div *ngIf="selectedWoodburning">
+      <h2>Woodburning - {{selectedWoodburning.name}} details!</h2>
+      <div>
+        <label><strong>Woodburning Number (id):</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.id" placeholder="E.g.: 1, 2, 3, 4, etc.">
+      </div>
+      <div>
+        <label><strong>Name of Woodburning:</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.name" placeholder="E.g.: Deadpool - Arms Crossed">
+      </div>
+      <div>
+        <label><strong>Size:</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.size" placeholder='E.g.: 3" x 2", 5" x 7"'>
+      </div>
+      <div>
+        <label><strong>Material Used:</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.material" placeholder="E.g.: Pinewood, Birch">
+      </div>
+      <div>
+        <label><strong>Date Finished:</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.date_finished" placeholder="E.g.: February 28th, 2017">
+      </div>
+      <div>
+        <label><strong>Total Time Taken (In Minutes):</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.total_time_to_make_in_minutes" placeholder="E.g.: 93, 165, 12">
+      </div>
+      <div>
+        <label><strong>Total Time Taken (Abbreviated):</strong></label>
+        <input class="input-styling" [(ngModel)]="selectedWoodburning.total_time_to_make_abbreviated" placeholder="E.g.: 1.5, 2.75, 0.25">
+      </div>
+    </div>
+  `,
   styles: [`
     .selected {
       background-color: #CFD8DC !important;
@@ -50,7 +70,7 @@ import { Component } from '@angular/core';
       margin: 0 0 2em 0;
       list-style-type: none;
       padding: 0;
-      width: 18em;
+      width: 20em;
     }
     .woodburnings_list li {
       cursor: pointer;
@@ -88,27 +108,18 @@ import { Component } from '@angular/core';
       height: 1.8em;
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
+    }
+    .input-styling {
+      width: 20em;
     }`]
 })
 
 export class AppComponent  {
   title = 'All Woodburning Entries';
   all_woodburnings = WOODBURNINGS;
-}
+  selectedWoodburning: WoodburningEntry;
 
-const WOODBURNINGS: WoodburningEntry[] = [
-  { id: 1, name: 'Maid Deadpool - Door Hanger', size: '4.5" x 4.5"', material: 'Pinewood', date_finished: 'February 28th, 2017', total_time_to_make_in_minutes: 93, total_time_to_make_abbreviated: 1.5 },
-  { id: 2, name: 'Deadpool Arms Crossed', size: '5" x 7"', material: 'Birch Plywood', date_finished: 'February 27th, 2017', total_time_to_make_in_minutes: 193, total_time_to_make_abbreviated: 3.25 },
-  { id: 3, name: 'Mouthy Canadian Deadpool', size: '5" x 7"', material: 'Birch Plywood', date_finished: '', total_time_to_make_in_minutes: 87, total_time_to_make_abbreviated: 1.5 },
-  { id: 4, name: 'I have Comiks Issues Deadpool', size: '5" x 7"', material: 'Birch Plywood', date_finished: 'September 23rd, 2016', total_time_to_make_in_minutes: 101, total_time_to_make_abbreviated: 1.75 },
-];
-
-export class WoodburningEntry {
-  id: number;
-  name: string;
-  size: string;
-  material: string;
-  date_finished: string;
-  total_time_to_make_in_minutes: number;
-  total_time_to_make_abbreviated: number;
+  onSelect(woodburning: WoodburningEntry): void {
+    this.selectedWoodburning = woodburning;
+  }
 }
