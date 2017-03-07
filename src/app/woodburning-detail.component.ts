@@ -35,7 +35,12 @@ import { WoodburningEntry } from './woodburning';
         <input class="input-styling" [(ngModel)]="woodburning.total_time_to_make_abbreviated" placeholder="E.g.: 1.5, 2.75, 0.25">
       </div>
     </div>
-`
+`,
+  styles: [`
+    .input-styling {
+          width: 20em;
+        }
+`]
 })
 
 export class WoodburningDetailComponent {

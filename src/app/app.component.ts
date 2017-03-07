@@ -64,9 +64,6 @@ import { WoodburningService } from './woodburning.service';
       height: 1.8em;
       margin-right: .8em;
       border-radius: 4px 0 0 4px;
-    }
-    .input-styling {
-      width: 20em;
     }`],
     providers: [WoodburningService]
 })
