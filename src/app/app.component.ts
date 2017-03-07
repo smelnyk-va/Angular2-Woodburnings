@@ -1,16 +1,7 @@
-import { Component } from '@angular/core';
-import { WoodburningEntry } from './woodburning';
+import { Component, OnInit } from '@angular/core';
 
-const WOODBURNINGS: WoodburningEntry[] = [
-  { id: 1, name: 'Maid Deadpool - Door Hanger', size: '4.5" x 4.5"', material: 'Pinewood',
-    date_finished: 'February 28th, 2017', total_time_to_make_in_minutes: 93, total_time_to_make_abbreviated: 1.5 },
-  { id: 2, name: 'Deadpool Arms Crossed', size: '5" x 7"', material: 'Birch Plywood',
-    date_finished: 'February 27th, 2017', total_time_to_make_in_minutes: 193, total_time_to_make_abbreviated: 3.25 },
-  { id: 3, name: 'Mouthy Canadian Deadpool', size: '5" x 7"', material: 'Birch Plywood',
-    date_finished: 'September 23rd, 2016', total_time_to_make_in_minutes: 87, total_time_to_make_abbreviated: 1.5 },
-  { id: 4, name: 'I have Comiks Issues Deadpool', size: '5" x 7"', material: 'Birch Plywood',
-    date_finished: 'September 23rd, 2016', total_time_to_make_in_minutes: 101, total_time_to_make_abbreviated: 1.75 },
-];
+import { WoodburningEntry } from './woodburning';
+import { WoodburningService } from './woodburning.service';
 
 @Component({
   selector: 'my-app',
@@ -76,13 +67,24 @@ const WOODBURNINGS: WoodburningEntry[] = [
     }
     .input-styling {
       width: 20em;
-    }`]
+    }`],
+    providers: [WoodburningService]
 })
 
-export class AppComponent  {
+export class AppComponent implements OnInit {
   title = 'All Woodburning Entries';
-  all_woodburnings = WOODBURNINGS;
+  all_woodburnings: WoodburningEntry[];
   selectedWoodburning: WoodburningEntry;
+
+  constructor(private woodburningService: WoodburningService) {}
+
+  getWoodburnings(): void {
+    this.woodburningService.getWoodburnings().then(all_woodburnings => this.all_woodburnings = all_woodburnings);
+  }
+
+  ngOnInit(): void {
+    this.getWoodburnings();
+  }
 
   onSelect(woodburning: WoodburningEntry): void {
     this.selectedWoodburning = woodburning;
