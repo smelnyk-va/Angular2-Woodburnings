@@ -11,8 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var forms_1 = require('@angular/forms');
+var app_routing_module_1 = require('./app-routing.module');
 var app_component_1 = require('./app.component');
+var dashboard_component_1 = require('./dashboard.component');
 var woodburning_detail_component_1 = require('./woodburning-detail.component');
+var woodburnings_component_1 = require('./woodburnings.component');
+var woodburning_service_1 = require('./woodburning.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,15 +24,17 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                app_routing_module_1.AppRoutingModule
             ],
             declarations: [
                 app_component_1.AppComponent,
-                woodburning_detail_component_1.WoodburningDetailComponent
+                dashboard_component_1.DashboardComponent,
+                woodburning_detail_component_1.WoodburningDetailComponent,
+                woodburnings_component_1.WoodburningsComponent
             ],
-            bootstrap: [
-                app_component_1.AppComponent
-            ]
+            providers: [woodburning_service_1.WoodburningService],
+            bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

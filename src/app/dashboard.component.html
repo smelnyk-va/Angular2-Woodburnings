@@ -1,0 +1,8 @@
+<h3>Top Woodburnings</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let woodburning of woodburnings"  [routerLink]="['/detail', woodburning.id]"  class="col-1-4">
+    <div class="module woodburning">
+      <h4>{{woodburning.name}}</h4>
+    </div>
+  </a>
+</div>
