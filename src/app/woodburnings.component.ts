@@ -37,4 +37,23 @@ export class WoodburningsComponent implements OnInit {
   gotoDetail(): void {
     this.router.navigate(['/detail', this.selectedWoodburning.id]);
   }
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.woodburningService.create(name)
+      .then(woodburning => {
+        this.all_woodburnings.push(woodburning);
+        this.selectedWoodburning = null;
+    });
+  }
+
+  delete(woodburning: WoodburningEntry): void {
+    this.woodburningService
+      .delete(woodburning.id)
+      .then(() => {
+        this.all_woodburnings = this.all_woodburnings.filter(h => h !== woodburning);
+        if (this.selectedWoodburning === woodburning) { this.selectedWoodburning = null; }
+    });
+  }
 }

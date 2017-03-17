@@ -30,6 +30,29 @@ var WoodburningsComponent = (function () {
     WoodburningsComponent.prototype.gotoDetail = function () {
         this.router.navigate(['/detail', this.selectedWoodburning.id]);
     };
+    WoodburningsComponent.prototype.add = function (name) {
+        var _this = this;
+        name = name.trim();
+        if (!name) {
+            return;
+        }
+        this.woodburningService.create(name)
+            .then(function (woodburning) {
+            _this.all_woodburnings.push(woodburning);
+            _this.selectedWoodburning = null;
+        });
+    };
+    WoodburningsComponent.prototype.delete = function (woodburning) {
+        var _this = this;
+        this.woodburningService
+            .delete(woodburning.id)
+            .then(function () {
+            _this.all_woodburnings = _this.all_woodburnings.filter(function (h) { return h !== woodburning; });
+            if (_this.selectedWoodburning === woodburning) {
+                _this.selectedWoodburning = null;
+            }
+        });
+    };
     WoodburningsComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

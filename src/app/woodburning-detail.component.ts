@@ -30,6 +30,11 @@ export class WoodburningDetailComponent implements OnInit {
     this.location.back();
   }
 
+  save(): void {
+    this.woodburningService.update(this.woodburning)
+      .then(() => this.goBack());
+  }
+
   ngOnInit(): void {
   this.route.params
     .switchMap((params: Params) => this.woodburningService.getWoodburning(+params['id']))

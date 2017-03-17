@@ -1,0 +1,9 @@
+<div id="search-component">
+  <h4>Woodburning Search</h4>
+  <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
+  <div>
+    <div *ngFor="let woodburning of all_woodburnings | async" (click)="gotoDetail(woodburning)" class="search-result" >
+      {{woodburning.name}}
+    </div>
+  </div>
+</div>

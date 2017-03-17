@@ -1,9 +1,14 @@
 <h2>My Woodburnings</h2>
+<div>
+  <label>Woodburning name:</label> <input #woodburningName />
+  <button (click)="add(woodburningName.value); woodburningName.value=''">Add</button>
+</div>
 <ul class="woodburnings_list">
   <li *ngFor="let woodburning of all_woodburnings"
     [class.selected]="woodburning === selectedWoodburning"
     (click)="onSelect(woodburning)">
-    <span class="badge">{{woodburning.id}}</span> {{woodburning.name}}
+    <span class="badge">{{woodburning.id}}</span>
+    <span>{{woodburning.name}}</span><button class="delete" (click)="delete(woodburning); $event.stopPropagation()"> x</button>
   </li>
 </ul>
 <div *ngIf="selectedWoodburning">
