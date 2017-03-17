@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Woodburning } from './woodburning';
+import { WoodburningEntry } from './woodburning';
 import { WoodburningService } from './woodburning.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { WoodburningService } from './woodburning.service';
 })
 export class DashboardComponent implements OnInit {
 
-  woodburnings: Woodburning[] = [];
+  woodburnings: WoodburningEntry[] = [];
 
   constructor(private woodburningService: WoodburningService) { }
 
